@@ -6,12 +6,21 @@
 
 <ion-content class="ion-padding">
   <form (ngSubmit)="onSubmit()">
+    <!-- AI Model Selection -->
+    <ion-item>
+      <ion-label>Select AI Model</ion-label>
+      <ion-select [(ngModel)]="selectedModel" name="aiModel">
+        <ion-select-option value="gemini-1.5-flash">Gemini 1.5 Flash</ion-select-option>
+        <ion-select-option value="gemini-1.5">Gemini 1.5</ion-select-option>
+        <ion-select-option value="gemini-2.0">Gemini 2.0</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
     <!-- Image selection grid -->
     <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let img of availableImages; trackBy: trackByFn" sizeMd="4">
+        <ion-col *ngFor="let img of availableImages; trackBy: trackByFn" size="12" sizeMd="4">
           <ion-card class="ion-activatable" (click)="selectImage(img.url)">
-            <!-- Apply CSS to make images the same size -->
             <ion-img [src]="img.url" class="image-size"></ion-img>
             <ion-ripple-effect></ion-ripple-effect>
             <ion-card-content>
@@ -26,7 +35,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    
+
     <ion-card>
       <ion-card-content>
         <ion-textarea
@@ -48,6 +57,17 @@
           <ion-icon name="cafe-outline" slot="start"></ion-icon>
           {{ isLoading ? 'Generating...' : 'Generate Recipe' }}
         </ion-button>
+        
+        <!-- Copy Recipe Button -->
+        <ion-button 
+          expand="block" 
+          class="ion-margin-top"
+          (click)="copyRecipe()"
+          [disabled]="!output"
+        >
+          <ion-icon name="copy-outline" slot="start"></ion-icon>
+          Copy Recipe
+        </ion-button>
       </ion-card-content>
     </ion-card>
 
@@ -62,4 +82,7 @@
 
     <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
   </form>
+  
+  <!-- Loading Spinner -->
+  <ion-loading [isOpen]="isLoading" message="Generating..."></ion-loading>
 </ion-content>

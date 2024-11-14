@@ -29,7 +29,7 @@ export class GeminiAiService {
   }
 
   // Method to generate content with the Gemini AI model
-  async generateRecipe(imageBase64: string, prompt: string): Promise<string> {
+  async generateRecipe(imageBase64: string, prompt: string, selectedModel: string): Promise<string> {
     try {
       // Use the Google Generative AI model to generate content
       const model = this.genAI.getGenerativeModel({ model: this.MODEL_NAME });

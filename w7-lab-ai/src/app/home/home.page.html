@@ -9,9 +9,10 @@
     <!-- Image selection grid -->
     <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let img of availableImages; trackBy: trackByFn" size="12" sizeMd="4">
+        <ion-col *ngFor="let img of availableImages; trackBy: trackByFn" sizeMd="4">
           <ion-card class="ion-activatable" (click)="selectImage(img.url)">
-            <ion-img [src]="img.url"></ion-img>
+            <!-- Apply CSS to make images the same size -->
+            <ion-img [src]="img.url" class="image-size"></ion-img>
             <ion-ripple-effect></ion-ripple-effect>
             <ion-card-content>
               <ion-radio-group [(ngModel)]="selectedImage" name="imageSelect">
